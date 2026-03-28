@@ -1,0 +1,70 @@
+/* ===== PRODUCTS PAGE ===== */
+.products-page {
+  position: relative;
+  z-index: 2;
+  padding: 80px 8%;
+  background: #0f172a;
+}
+
+/* ===== HEADING ===== */
+.products-page h2 {
+  color: #f59e0b; /* 🔥 better orange */
+  margin-bottom: 40px;
+  font-size: 30px;
+  font-weight: 700;
+
+  position: relative;
+  z-index: 3; /* ensures above cards */
+}
+
+/* ===== GRID ===== */
+.product-grid {
+  display: grid; /* ✅ REMOVE flex */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: #4b5563;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+
+  transition: 0.3s;
+}
+
+/* hover (optional) */
+.card:hover {
+  transform: translateY(-8px);
+}
+
+/* ===== TEXT ===== */
+.old {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+/* ===== BUTTON ===== */
+.card button {
+  margin-top: 10px;
+  background: #f59e0b; /* better orange */
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.card button:hover {
+  background: #f97316;
+}

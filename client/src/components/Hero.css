@@ -1,0 +1,152 @@
+.hero {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 8%; /* ✅ reduced spacing */
+  min-height: 90vh;
+  overflow: hidden;
+  /* variables */
+  --x: 0px;
+  --y: 0px;
+  --mouseX: 50%;
+  --mouseY: 50%;
+
+  background: radial-gradient(circle at right, rgba(34,211,238,0.1), transparent 40%),
+              linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+/* SPOTLIGHT */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle at var(--mouseX) var(--mouseY),
+    rgba(34,211,238,0.2),
+    transparent 40%
+  );
+}
+
+/* LEFT */
+.hero-left {
+  max-width: 500px;
+}
+
+/* ✅ FIXED: MEGA SHOPPING */
+.hero-left h1 {
+  font-size: 50px;
+  color: white; /* 🔥 FIX */
+  font-weight: 700;
+}
+
+/* SALE */
+.hero-left h2 {
+  font-size: 100px;
+  font-weight: 800;
+  background: linear-gradient(45deg, #f59e0b, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ✅ FIXED TEXT VISIBILITY */
+.hero-left p {
+  margin: 20px 0;
+  color: #cbd5f5;
+}
+
+/* highlight % text */
+.hero-left span {
+  background: linear-gradient(45deg, #f59e0b, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+/* BUTTON */
+.hero-left button {
+  background: linear-gradient(45deg, #06b6d4, #22d3ee);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero-left button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(34,211,238,0.3);
+}
+
+/* RIGHT */
+.hero-right {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CIRCLE */
+.circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.5), transparent 70%);
+  position: relative;
+
+  box-shadow: 0 0 120px rgba(34,211,238,0.2);
+  animation: pulse 3s infinite ease-in-out;
+}
+
+/* WRAPPERS (PARALLAX) */
+.laptop-wrap {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  transform: translate(var(--x), var(--y));
+}
+
+.headphone-wrap {
+  position: absolute;
+  top: 40px;
+  right: 30px;
+  transform: translate(calc(var(--x) * -1), calc(var(--y) * -1));
+}
+
+/* IMAGES */
+.laptop {
+  width: 280px;
+  transform: rotate(-15deg);
+  animation: float 4s ease-in-out infinite;
+}
+
+.headphone {
+  width: 180px;
+  transform: rotate(15deg);
+  animation: float2 4s ease-in-out infinite;
+}
+
+/* FLOAT */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(-15deg); }
+  50% { transform: translateY(-15px) rotate(-15deg); }
+  100% { transform: translateY(0px) rotate(-15deg); }
+}
+
+@keyframes float2 {
+  0% { transform: translateY(0px) rotate(15deg); }
+  50% { transform: translateY(-12px) rotate(15deg); }
+  100% { transform: translateY(0px) rotate(15deg); }
+}
+
+/* GLOW PULSE */
+@keyframes pulse {
+  0% { box-shadow: 0 0 80px rgba(34,211,238,0.2); }
+  50% { box-shadow: 0 0 140px rgba(34,211,238,0.4); }
+  100% { box-shadow: 0 0 80px rgba(34,211,238,0.2); }
+}
