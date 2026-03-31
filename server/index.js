@@ -8,6 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ✅ SERVE IMAGES FROM BACKEND
+app.use("/images", express.static("images"));
+
 /* ===== AUTO CREATE TABLE ===== */
 const initDB = async () => {
   try {
@@ -34,7 +37,7 @@ app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
 
-/* ===== PRODUCTS API ===== */
+/* ===== GET ALL PRODUCTS ===== */
 app.get("/products", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM products ORDER BY id ASC");
@@ -50,12 +53,21 @@ app.post("/products", async (req, res) => {
   try {
     const { name, price, image, description } = req.body;
 
+    // ✅ VALIDATION (prevents 400 confusion)
+    if (!name || !price || !image || !description) {
+      return res.status(400).json({
+        error: "All fields (name, price, image, description) are required",
+      });
+    }
+
     const newProduct = await pool.query(
-      "INSERT INTO products (name, price, image, description) VALUES ($1, $2, $3, $4) RETURNING *",
+      `INSERT INTO products (name, price, image, description)
+       VALUES ($1, $2, $3, $4)
+       RETURNING *`,
       [name, price, image, description],
     );
 
-    res.json(newProduct.rows[0]);
+    res.status(201).json(newProduct.rows[0]);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ error: "Error adding product" });
@@ -80,5 +92,5 @@ app.delete("/products/:id", async (req, res) => {
 const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
