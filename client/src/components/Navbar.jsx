@@ -1,10 +1,30 @@
 import "./Navbar.css";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 
 const Navbar = () => {
   const { cart } = useContext(CartContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  // Update login state on navigation or storage change
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem("isLoggedIn"));
+    const handleStorage = () =>
+      setIsLoggedIn(!!localStorage.getItem("isLoggedIn"));
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar">
@@ -27,7 +47,13 @@ const Navbar = () => {
         {/* CART */}
         <Link to="/cart">Cart 🛒 ({cart.length})</Link>
 
-        <Link to="/login">Sign in</Link>
+        {isLoggedIn ? (
+          <button onClick={handleLogout} className="logout-btn">
+            Log out
+          </button>
+        ) : (
+          <Link to="/login">Sign in</Link>
+        )}
       </div>
     </nav>
   );

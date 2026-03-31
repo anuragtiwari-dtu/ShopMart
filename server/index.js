@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-/* ===== TEMP USER STORAGE (for now) ===== */
+/* ===== TEMP USER STORAGE ===== */
 let users = [];
 
 /* ===== HOME ROUTE ===== */
@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
 
-/* ===== PRODUCTS API (GET FROM DATABASE) ===== */
+/* ===== PRODUCTS API ===== */
 app.get("/products", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM products ORDER BY id ASC");
@@ -58,12 +58,7 @@ app.delete("/products/:id", async (req, res) => {
   }
 });
 
-/* ===== LOGIN (GET for test) ===== */
-app.get("/login", (req, res) => {
-  res.send("Login works only with POST");
-});
-
-/* ===== SIGNUP ===== */
+/* ===== AUTH ===== */
 app.post("/signup", (req, res) => {
   const { email, password } = req.body;
 
@@ -78,7 +73,6 @@ app.post("/signup", (req, res) => {
   res.json({ message: "Signup successful" });
 });
 
-/* ===== LOGIN ===== */
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -92,6 +86,8 @@ app.post("/login", (req, res) => {
 });
 
 /* ===== SERVER START ===== */
-app.listen(5000, () => {
-  console.log("Server running at http://localhost:5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

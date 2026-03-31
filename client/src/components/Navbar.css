@@ -80,6 +80,20 @@ body {
   transition: 0.3s ease;
 }
 
+.logout-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout-btn:hover {
+  background: #b91c1c;
+}
+
 .nav-links a:hover {
   color: white;
 }

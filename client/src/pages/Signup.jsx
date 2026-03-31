@@ -22,7 +22,8 @@ const Signup = () => {
     alert(data.message);
 
     if (data.message === "Signup successful") {
-      navigate("/login"); // go to login page
+      localStorage.setItem("isLoggedIn", "true");
+      navigate("/"); // go to home page after signup
     }
   };
 

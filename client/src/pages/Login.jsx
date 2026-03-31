@@ -22,6 +22,7 @@ const Login = () => {
     alert(data.message);
 
     if (data.message === "Login successful") {
+      localStorage.setItem("isLoggedIn", "true");
       navigate("/"); // redirect to home
     }
   };
